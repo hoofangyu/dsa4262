@@ -6,7 +6,7 @@ import numpy as np
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Parse Json
-def parse_row(row):
+def parse_row(row: dict) -> list:
     ls = []
 
     for key,value in row.items():
@@ -22,13 +22,13 @@ def parse_row(row):
 
     return ls
 
-def process_line(index, line):
+def process_line(index: int, line: str) -> list:
     row = json.loads(line)
     parsed_row = parse_row(row)
     print(f"Processed line {index + 1}")
     return parsed_row
 
-def parse_json(json_path,csv_path):
+def parse_json(json_path: str, csv_path: str) -> pd.DataFrame:
     with open(json_path) as f:
         lines = f.readlines()
 
