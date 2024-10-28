@@ -76,6 +76,7 @@ def parse_json(json_path: str,csv_path: str) -> pd.DataFrame:
 
     labels = pd.read_csv(csv_path)
     df_with_labels = df.merge(labels, on = ["transcript_id","transcript_position"])
+    print(df_with_labels.columns)
 
     return df_with_labels
 
@@ -102,17 +103,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-
-"""
-json_file_path = sys.argv[1]
-csv_file_path = sys.argv[2]
-
-# Extract file names (without directory paths) and remove extensions
-json_file_name = os.path.splitext(os.path.basename(json_file_path))[0]
-csv_file_name = os.path.splitext(os.path.basename(csv_file_path))[0]
-
-df = parse_json(json_file_path, csv_file_path)
-df.to_parquet(f"/data/{json_file_name}_{csv_file_name}.parquet")
-
-print(f"Dataframe successfully saved to /data/{json_file_name}_{csv_file_name}.parquet")
-"""

@@ -18,29 +18,21 @@ from catboost import CatBoostClassifier
 from imblearn.over_sampling import SMOTE, ADASYN
 from collections import Counter
 
-def generate_predictions(training_path, testing_path, features_path):
-    with open(features_path, "r") as file:
-        final_columns = json.load(file)
-    print(f"{len(final_columns)} features loaded!")
+def generate_predictions(testing_path, model_path):
+    test = pd.read_parquet(testing_path)
+    test["seq_1"] = test["seq"].apply(lambda x: x[0:5])
+    test["seq_2"] = test["seq"].apply(lambda x: x[1:6])
+    test["seq_3"] = test["seq"].apply(lambda x: x[2:7])
 
-    train = pd.read_parquet(training_path)
-    x_train = train[final_columns]
-    y_train = train[['label']]
+    x_test = test.drop(columns=["transcript_id", "transcript_position", "seq"])
 
-    # Fitting Catboost
-    print("Train Dataset Loaded, Begin Model Training...")
+    print("Loading Model...")
     cb = CatBoostClassifier()
-    cb.fit(x_train, y_train)
-    print("Model Trained")
-
-    print(f'train roc auc: {round(roc_auc_score(y_train, cb.predict_proba(x_train)[:,1]),4)}')
-    precision, recall, thresholds = precision_recall_curve(y_train, cb.predict_proba(x_train)[:,1])
-    print(f'train pr auc: {round(auc(recall, precision),4)}')
+    cb.load_model(model_path) 
+    print("Model loaded")
 
     print("Generating Predictions on Test Set...")
-    test = pd.read_parquet(testing_path)
     df_final = test[["transcript_id", "transcript_position"]].copy()
-    x_test = test[final_columns]
     predictions = cb.predict_proba(x_test)[:,1]
     df_final["score"] = predictions
     
@@ -49,20 +41,18 @@ def generate_predictions(training_path, testing_path, features_path):
 def main():
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('training_path', type=str, help='Path to the training file')
     parser.add_argument('testing_path', type=str, help='Path to the testing file')
-    parser.add_argument('features_path', type=str, help='Path to features')
+    parser.add_argument('model_path', type=str, help='Path to the model file')
     parser.add_argument('output_name', type=str, help='Name of the output file')
 
     args = parser.parse_args()
 
-    training_path = args.training_path
     testing_path = args.testing_path
-    features_path = args.features_path
+    model_path = args.model_path
     output_name = args.output_name
 
     print("Generate Predictions")
-    df = generate_predictions(training_path, testing_path, features_path)
+    df = generate_predictions(testing_path, model_path)
 
     output_path = f"output/{output_name}_results.csv"
     df.to_csv(output_path)

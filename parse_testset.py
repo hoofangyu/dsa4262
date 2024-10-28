@@ -48,15 +48,10 @@ def process_line(index: int, line: str) -> list:
     print(f"Processed line {index + 1}")
     return parsed_row
 
-def parse_json(json_path: str, features_path: str) -> pd.DataFrame:
+def parse_json(json_path: str) -> pd.DataFrame:
     with gzip.open(json_path, 'rt') as f:
         lines = f.readlines()
 
-    with open(features_path, "r") as file:
-        final_columns = json.load(file)
-    print(f"{len(final_columns)} features loaded!")
-
-    # Create new dimensions
     columns = ["transcript_id", "transcript_position", "seq"]
     values = ["dt_1", "sd_1", "curr_1", "dt_2", "sd_2", "curr_2", "dt_3", "sd_3", "curr_3"]
 
@@ -78,26 +73,24 @@ def parse_json(json_path: str, features_path: str) -> pd.DataFrame:
     df["transcript_position"] = df["transcript_position"].astype(int)
     df = df.sort_values(by = ["transcript_id","transcript_position"])
 
-    df_reduced = df[["transcript_id", "transcript_position"] + final_columns]
-    print(f"{len(df_reduced)} entries created for testing")
+    print(f"{len(df)} entries created for testing")
+    #print(df.columns)
 
-    return df_reduced
+    return df
 
 def main():
     parser = argparse.ArgumentParser()
     
     parser.add_argument('dataset_path', type=str, help='Path to the dataset file')
-    parser.add_argument('features_path', type=str, help='Path to features')
     parser.add_argument('output_name', type=str, help='Name of the output file')
 
     args = parser.parse_args()
 
     dataset_path = args.dataset_path
-    features_path = args.features_path
     output_name = args.output_name
 
     print("Processing Test Set")
-    df = parse_json(dataset_path, features_path)
+    df = parse_json(dataset_path)
 
     output_path = f"data/{output_name}.parquet"
     df.to_parquet(output_path)
