@@ -1,5 +1,6 @@
 import json
 import gzip
+import os
 import pandas as pd
 import numpy as np
 import argparse
@@ -189,6 +190,7 @@ def main():
     print("Processing Test Set")
     df = parse_json(dataset_path)
 
+    os.makedirs("data", exist_ok=True)
     output_path = f"data/{output_name}.parquet"
     df.to_parquet(output_path)
     df.to_csv(f"data/{output_name}.csv")

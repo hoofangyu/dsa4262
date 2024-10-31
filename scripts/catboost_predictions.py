@@ -1,7 +1,6 @@
 import pandas as pd
 import argparse
-
-import pandas as pd
+import os
 from catboost import CatBoostClassifier
 
 def generate_predictions(testing_path, model_path):
@@ -43,10 +42,10 @@ def main():
     print("Generate Predictions")
     df = generate_predictions(testing_path, model_path)
 
+    os.makedirs("output", exist_ok=True)
     output_path = f"output/{output_name}_results.csv"
     df.to_csv(output_path)
     print(f"Processing complete, dataset saved to {output_path}")
-
 
 if __name__ == "__main__":
     main()

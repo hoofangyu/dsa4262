@@ -193,6 +193,7 @@ def main():
     print("Processing Json")
     df = parse_json(dataset_path, label_path)
 
+    os.makedirs("data", exist_ok=True)
     output_path = f"data/{output_name}.parquet"
     df.to_parquet(output_path)
     # df.to_csv(f"data/{output_name}.csv")

@@ -1,7 +1,6 @@
 import pandas as pd
 import argparse
-
-import pandas as pd
+import os
 from sklearn.metrics import (
     roc_auc_score,
     auc,
@@ -56,6 +55,7 @@ def main():
     print("Generate Predictions")
     cb = generate_predictions(training_path)
 
+    os.makedirs("models", exist_ok=True)
     output_path = f"models/{output_name}.cbm"
     cb.save_model(output_path)
     print(f"Training complete, model saved to {output_path}")
