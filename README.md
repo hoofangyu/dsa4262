@@ -22,9 +22,18 @@ The main workflow consists of data processing, model training, and generating pr
 ```bash
 git clone https://github.com/hoofangyu/dsa4262.git 
 ```
-
-2. Install required packages
+2. Move into dsa4262 directory
 ```bash
+cd dsa4262
+```
+3. Create virtual environment (optional)
+```bash
+sudo apt apt install python3.8-venv
+python3 -m venv <name_of_env>
+```
+4. Install required packages
+```bash
+sudo apt install python3-pip
 python3 -m pip install -r requirements.txt
 ```
 
@@ -46,8 +55,9 @@ python3 scripts/catboost_predictions.py <testing_path> <model_path> <output_name
 ```
 
 ### Example Usage
-1. Download online testset to /data folder
+1. Download public testset to /data folder
 ```bash
+aws s3 cp --no-sign-request s3://sg-nex-data/data/processed_data/m6Anet/ SGNex_A549_directRNA_replicate6_run1/data.json data/
 ```
 3. Parse testset
 ```bash
