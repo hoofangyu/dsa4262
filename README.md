@@ -1,5 +1,5 @@
 # Getting Started
-Our repository is structured in the following way:
+This repository is organised as follows:
 
 ```
 root
@@ -8,13 +8,13 @@ root
 ├── model          # Stored trained models
 ├── data           # Input raw data sets (in JSON)
 ├── output         # Results in CSV format from model predictions
-└── tests          # Test cases for all modules
+└── tests          # Unit tests for scripts
 ```
 
 ## Main Flow
-![flow diagram](.github/assets/main_flow.png)
+The main workflow consists of data processing, model training, and generating predictions. The component diagram below provides a high-level view:
 
-Our repository primarily follows the above flow.
+![flow diagram](.github/assets/main_flow.png)
 
 
 ## Installation
@@ -29,8 +29,8 @@ python3 -m pip install -r requirements.txt
 ```
 
 # Usage
-## Using our pre-trained model (and for DSA4262)
-High-level flow for pre-trained model usage:
+## Using our Pre-Trained Model (Follow steps here for DSA4262)
+Below is an overview of how to use our pre-trained model to generate predictions:
 
 ![flow diagram](.github/assets/usage_flow.png)
 
@@ -41,8 +41,10 @@ High-level flow for pre-trained model usage:
 
 2. Parse testset
 ```bash
+python3 scripts/parse_testset.py <dataset_path> <output_file_name>
 ```
 
 3. Run predition
 ```bash
+python3 scripts/parse_testset.py <testing_path> <model_path> <output_name>
 ```
