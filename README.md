@@ -30,15 +30,11 @@ python3 -m pip install -r requirements.txt
 
 # Usage
 ## Using our Pre-Trained Model (Follow steps here for DSA4262)
-Below is an overview of how to use our pre-trained model to generate predictions:
+By using our pre-trained model, the workflow will consist only the data processing and prediction generation steps. Here is the high-level view:
 
 ![flow diagram](.github/assets/usage_flow.png)
 
-1. Move or download the testset to /data folder
-``` bash
-
-```
-
+1. Move or download the testset directly to /data folder
 2. Parse testset
 ```bash
 python3 scripts/parse_testset.py <dataset_path> <output_file_name>
@@ -46,5 +42,18 @@ python3 scripts/parse_testset.py <dataset_path> <output_file_name>
 
 3. Run predition
 ```bash
-python3 scripts/parse_testset.py <testing_path> <model_path> <output_name>
+python3 scripts/catboost_predictions.py <testing_path> <model_path> <output_name>
+```
+
+### Example Usage
+1. Download online testset to /data folder
+```bash
+```
+3. Parse testset
+```bash
+python3 scripts/parse_testset.py data/dataset1.json.gz eval
+```
+3. Run prediction
+```bash
+python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results
 ```
