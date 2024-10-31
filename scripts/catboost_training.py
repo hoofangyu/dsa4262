@@ -10,6 +10,7 @@ from sklearn.metrics import (
 )
 from catboost import CatBoostClassifier
 
+
 def generate_predictions(training_path):
 
     train = pd.read_parquet(training_path)

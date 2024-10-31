@@ -21,7 +21,7 @@ def generate_features(array):
     Returns
     -------
     concatenated_array : np.ndArray
-        A 1D array that contains the concatenated mean, median, max, min, and 
+        A 1D array that contains the concatenated mean, median, max, min, and
         standard deviation of the input array along the columns.
     """
     mean_array = np.mean(array, axis=0)
@@ -63,7 +63,7 @@ def cluster_samples(array):
 
 def parse_row(row: dict) -> list:
     """
-    Parses a single JSON row of hierarchical data, extracts arrays, and 
+    Parses a single JSON row of hierarchical data, extracts arrays, and
     generates feature sets for the whole data and for each cluster.
 
     Parameters
@@ -74,7 +74,7 @@ def parse_row(row: dict) -> list:
     Returns
     -------
     ls : list
-        A list containing the parsed keys, followed by the generated features 
+        A list containing the parsed keys, followed by the generated features
         for the entire array and two KMeans clusters.
     """
     ls = []
@@ -123,7 +123,7 @@ def parse_json(json_path: str) -> pd.DataFrame:
 
     Parameters
     ----------
-    json_path : str 
+    json_path : str
         Path to the gzipped JSON file that contains the input data.
 
     csv_path : str
