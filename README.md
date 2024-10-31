@@ -57,13 +57,17 @@ python3 scripts/catboost_predictions.py <testing_path> <model_path> <output_name
 ### Example Usage
 1. Download public testset to /data folder
 ```bash
-aws s3 cp --no-sign-request s3://sg-nex-data/data/processed_data/m6Anet/ SGNex_A549_directRNA_replicate6_run1/data.json data/
+aws s3 cp --no-sign-request s3://sg-nex-data/data/processed_data/m6Anet/SGNex_A549_directRNA_replicate5_run1/data.json data/
 ```
+2. gzip file with increased buffer size
+```bash
+buffer -s 100000 -m 10000000 -p 100 < data/data.json | gzip > data/data.json.gz          
+``` 
 3. Parse testset
 ```bash
-python3 scripts/parse_testset.py data/dataset1.json.gz eval
+python3 scripts/parse_testset.py data/data.json.gz eval
 ```
-3. Run prediction
+4. Run prediction
 ```bash
 python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results
 ```
