@@ -1,6 +1,10 @@
 # ML Libraries
 /catboost_info
 
+# Datasets
+*.json
+*.gz 
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
