@@ -84,6 +84,11 @@ def parse_row(row: dict) -> list:
             ls.append(key1)
             for key2, value2 in value1.items():
                 ls.append(key2)
+                
+                if len(value2) == 0:
+                    ls += [None] * 135
+                    return ls
+
                 array = np.array(value2)
                 whole_set = generate_features(array).tolist()
                 if len(array) >= 2:
@@ -94,6 +99,7 @@ def parse_row(row: dict) -> list:
                     cluster_1_set = whole_set
                     cluster_2_set = whole_set
                 ls += whole_set + cluster_1_set + cluster_2_set
+                
     return ls
 
 
