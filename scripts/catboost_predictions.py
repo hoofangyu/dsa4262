@@ -45,7 +45,9 @@ def main():
 
     os.makedirs("output", exist_ok=True)
     output_path = f"output/{output_name}_results.csv"
+    output_path_parquet = f"output/{output_name}_results.parquet"
     df.to_csv(output_path)
+    df.to_parquet(output_path_parquet)
     print(f"Processing complete, dataset saved to {output_path}")
 
 
