@@ -58,6 +58,8 @@ def cluster_samples(array):
     labels = kmeans.labels_
     cluster_1 = array[labels == 0]
     cluster_2 = array[labels == 1]
+    if len(cluster_2) == 0:
+        return cluster_1, cluster_1
     return cluster_1, cluster_2
 
 
