@@ -7,6 +7,8 @@ from catboost import CatBoostClassifier
 def generate_predictions(testing_path, model_path):
 
     test = pd.read_parquet(testing_path)
+    print(f"{len(test)} rows loaded for predictions")
+    
     na_row_count = test.isna().any(axis=1).sum()
     test = test.dropna()
 
