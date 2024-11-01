@@ -7,6 +7,8 @@ from catboost import CatBoostClassifier
 def generate_predictions(testing_path, model_path):
 
     test = pd.read_parquet(testing_path)
+    na_row_count = test.isna().any(axis=1).sum()
+    test = test.dropna()
 
     test["seq_1"] = test["seq"].apply(lambda x: x[0:5])
     test["seq_2"] = test["seq"].apply(lambda x: x[1:6])
@@ -23,6 +25,8 @@ def generate_predictions(testing_path, model_path):
     df_final = test[["transcript_id", "transcript_position"]].copy()
     predictions = cb.predict_proba(x_test)[:, 1]
     df_final["score"] = predictions
+
+    print(f"Number of Invalid Rows: {na_row_count}")
 
     return df_final
 
