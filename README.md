@@ -28,7 +28,7 @@ cd dsa4262
 ```
 3. Create virtual environment (optional)
 ```bash
-sudo apt apt install python3.8-venv
+sudo apt install python3.8-venv
 python3 -m venv <name_of_env>
 ```
 4. Install required packages
