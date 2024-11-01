@@ -7,6 +7,8 @@ import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from sklearn.cluster import KMeans
 
+import warnings
+warnings.filterwarnings("ignore")
 
 def generate_features(array):
     """
