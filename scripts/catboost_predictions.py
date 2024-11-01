@@ -33,21 +33,26 @@ def main():
     parser.add_argument("testing_path", type=str, help="Path to the testing file")
     parser.add_argument("model_path", type=str, help="Path to the model file")
     parser.add_argument("output_name", type=str, help="Name of the output file")
+    parser.add_argument("--parquet", action="store_true", help="Save output as Parquet instead of CSV")
 
     args = parser.parse_args()
 
     testing_path = args.testing_path
     model_path = args.model_path
     output_name = args.output_name
+    save_as_parquet = args.parquet
 
     print("Generate Predictions")
     df = generate_predictions(testing_path, model_path)
 
     os.makedirs("output", exist_ok=True)
-    output_path = f"output/{output_name}_results.csv"
-    output_path_parquet = f"output/{output_name}_results.parquet"
-    df.to_csv(output_path)
-    df.to_parquet(output_path_parquet)
+    if save_as_parquet:
+        output_path = f"output/{output_name}_results.parquet"
+        df.to_parquet(output_path)
+    else:
+        output_path = f"output/{output_name}_results.csv"
+        df.to_csv(output_path)
+        
     print(f"Processing complete, dataset saved to {output_path}")
 
 
