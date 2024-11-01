@@ -9,7 +9,7 @@ def generate_predictions(testing_path, model_path):
     test = pd.read_parquet(testing_path)
     print(f"{len(test)} rows loaded for predictions")
 
-    na_row_count = df.isna().any(axis=1).sum()
+    na_row_count = test.isna().any(axis=1).sum()
     print(f"Number of Invalid Rows: {na_row_count}")
 
     test["seq_1"] = test["seq"].apply(lambda x: x[0:5])
