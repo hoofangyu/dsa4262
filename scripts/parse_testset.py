@@ -105,7 +105,7 @@ def parse_row(row: dict) -> list:
     return ls
 
 
-def process_line(index: int, line: str) -> list:
+def process_line(index: int, line: str, size: int) -> list:
     """
     Processes a single line from a gzipped JSON file and returns a generated feature set.
 
@@ -124,7 +124,7 @@ def process_line(index: int, line: str) -> list:
     """
     row = json.loads(line)
     parsed_row = parse_row(row)
-    print(f"Processed line {index + 1}")
+    print(f"Processed line {index + 1}/{size}")
     return parsed_row
 
 
@@ -154,6 +154,7 @@ def parse_json(json_path: str) -> pd.DataFrame:
     else:
         raise ValueError("File format not supported. Please provide a .json or .json.gz file.")
 
+    size = len(lines)
     columns = ["transcript_id", "transcript_position", "seq"]
     values = [
         "dt_1",
@@ -176,7 +177,7 @@ def parse_json(json_path: str) -> pd.DataFrame:
 
     with ThreadPoolExecutor() as executor:
         future_to_index = {
-            executor.submit(process_line, i, line): i for i, line in enumerate(lines)
+            executor.submit(process_line, i, line, size): i for i, line in enumerate(lines)
         }
         for future in as_completed(future_to_index):
             parsed_row = future.result()
