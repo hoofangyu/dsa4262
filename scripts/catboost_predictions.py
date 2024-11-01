@@ -8,27 +8,36 @@ def generate_predictions(testing_path, model_path):
 
     test = pd.read_parquet(testing_path)
     print(f"{len(test)} rows loaded for predictions")
-    
-    na_row_count = test.isna().any(axis=1).sum()
-    test = test.dropna()
+
+    na_row_count = df.isna().any(axis=1).sum()
+    print(f"Number of Invalid Rows: {na_row_count}")
 
     test["seq_1"] = test["seq"].apply(lambda x: x[0:5])
     test["seq_2"] = test["seq"].apply(lambda x: x[1:6])
     test["seq_3"] = test["seq"].apply(lambda x: x[2:7])
 
-    x_test = test.drop(columns=["transcript_id", "transcript_position", "seq"])
+    if na_row_count > 0:
+        test_valid = test.dropna()
+    else:
+        test_valid = test
 
+    x_test = test_valid.drop(columns=["transcript_id", "transcript_position", "seq"])
+    
     print("Loading Model...")
     cb = CatBoostClassifier()
     cb.load_model(model_path)
     print("Model loaded")
 
     print("Generating Predictions on Test Set...")
-    df_final = test[["transcript_id", "transcript_position"]].copy()
+    df_final = test_valid[["transcript_id", "transcript_position"]].copy()
     predictions = cb.predict_proba(x_test)[:, 1]
     df_final["score"] = predictions
 
-    print(f"Number of Invalid Rows: {na_row_count}")
+    if na_row_count > 0:
+        test_invalid = test[test.isna().any(axis=1)]
+        df_invalid = test_invalid[["transcript_id", "transcript_position"]].copy()
+        df_invalid["score"] = None
+        df_final = pd.concat([df_final, df_invalid], axis = 0).sort_values(by=["transcript_id", "transcript_position"])
 
     return df_final
 
