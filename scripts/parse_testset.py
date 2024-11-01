@@ -126,8 +126,8 @@ def parse_json(json_path: str) -> pd.DataFrame:
 
     Parameters
     ----------
-    json_path : str
-        Path to the gzipped JSON file that contains the input data.
+     json_path : str
+        Path to the JSON or gzipped JSON (.json.gz) file that contains the input data.
 
     csv_path : str
         Path to the CSV file containing labels to be merged with the parsed data.
@@ -137,8 +137,14 @@ def parse_json(json_path: str) -> pd.DataFrame:
     df_with_labels : pd.DataFrame
         A pandas DataFrame that includes the processed feature data merged with the label information from the CSV.
     """
-    with gzip.open(json_path, "rt") as f:
-        lines = f.readlines()
+    if json_path.endswith(".gz"):
+        with gzip.open(json_path, "rt") as f:
+            lines = f.readlines()
+    elif json_path.endswith(".json"):
+        with open(json_path, "r") as f:
+            lines = f.readlines()
+    else:
+        raise ValueError("File format not supported. Please provide a .json or .json.gz file.")
 
     columns = ["transcript_id", "transcript_position", "seq"]
     values = [
