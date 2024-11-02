@@ -51,8 +51,11 @@ python3 scripts/parse_testset.py <dataset_path> <output_file_name>
 
 3. Run predition
 ```bash
-python3 scripts/catboost_predictions.py <testing_path> <model_path> <output_name>
+python3 scripts/catboost_predictions.py <testing_path> <model_path> <output_name> [--parquet]
 ```
+The `--parquet` flag is optional. Include this flag if you wish to save the output file as a Parquet format instead of the default CSV.
+
+***
 
 ### Example Usage
 1. Download public testset to /data folder
@@ -65,5 +68,5 @@ python3 scripts/parse_testset.py data/data.json eval
 ```
 3. Run prediction
 ```bash
-python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results
+python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results --parquet
 ```
