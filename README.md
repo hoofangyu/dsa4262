@@ -96,7 +96,7 @@ aws s3 cp --no-sign-request s3://sg-nex-data/data/processed_data/m6Anet/SGNex_A5
     ```
    2. Run prediction 
     ```bash
-    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results --parquet
+    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results
     ```
 
 <br>
