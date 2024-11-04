@@ -11,6 +11,12 @@ root
 └── tests          # Unit tests for scripts
 ```
 
+### Quick Links
+
+|   |   |
+| ---   | --- |
+| For DSA4262 fellow peer reviewers | [link](#using-our-pre-trained-model) to steps on generating predictions from our pre-trained model |
+
 ## Main Flow
 The main workflow consists of data processing, model training, and generating predictions. The component diagram below provides a high-level view:
 
@@ -38,7 +44,7 @@ python3 -m pip install -r requirements.txt
 ```
 
 # Usage
-## Using our Pre-Trained Model (Follow steps here for DSA4262 review)
+## Using our Pre-Trained Model
 By using our pre-trained model, the workflow will consist only the data processing and prediction generation steps. Here is the high-level view:
 
 ![flow diagram](.github/assets/usage_flow.png)
