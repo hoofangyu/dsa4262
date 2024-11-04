@@ -83,6 +83,8 @@ curl http://169.254.169.254/latest/meta-data/public-ipv4
 ```
 ### Example Usage (for local file)
 #### On AWS Ubuntu Instance (REFER TO THIS SECTION FOR STUDENT EVALUATION)
+Do use the largest AWS Ubuntu Instance type m6i.4xlarge
+
 1. Upload local testset to /data folder. On your local console, run the following:
 ```bash
 # scp -i <local_pem_file_path> <local_testset_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws>
