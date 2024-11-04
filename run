@@ -30,9 +30,9 @@ echo "Generating predictions using model '$TRAINED_MODEL_PATH' with parsed test 
 
 if [ "$IS_PARQUET" = false ]; then
     python3 scripts/catboost_predictions.py "$PARSED_TEST_SET_PATH" "$TRAINED_MODEL_PATH" "$PREDICTIONS_OUTPUT_NAME"
-    echo "Generation of predictions successful. Please find resultant file in output/$PREDICTIONS_OUTPUT_NAME.parquet"
+    echo "Generation of predictions successful. Please find resultant file in output/$PREDICTIONS_OUTPUT_NAME.csv"
 
 else
     python3 scripts/catboost_predictions.py "$PARSED_TEST_SET_PATH" "$TRAINED_MODEL_PATH" "$PREDICTIONS_OUTPUT_NAME" --parquet
-    echo "Generation of predictions successful. Please find resultant file in output/$PREDICTIONS_OUTPUT_NAME.csv"
+    echo "Generation of predictions successful. Please find resultant file in output/$PREDICTIONS_OUTPUT_NAME.parquet"
 fi
