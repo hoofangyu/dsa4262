@@ -62,10 +62,10 @@ def main():
 
     os.makedirs("output", exist_ok=True)
     if save_as_parquet:
-        output_path = f"output/{output_name}_results.parquet"
+        output_path = f"output/{output_name}.parquet"
         df.to_parquet(output_path)
     else:
-        output_path = f"output/{output_name}_results.csv"
+        output_path = f"output/{output_name}.csv"
         df.to_csv(output_path)
         
     print(f"Processing complete, dataset saved to {output_path}")
