@@ -90,6 +90,7 @@ def parse_row(row: dict) -> list:
                 ls.append(key2)
                 
                 if len(value2) == 0:
+                    print("Invalid Row")
                     ls += [None] * 135
                     return ls
 
