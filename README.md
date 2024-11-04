@@ -1,3 +1,7 @@
+# m6Atect
+Presenting our solution for DSA4262: m6atect!
+By Fang Yu, Eda, Kah Seng, Wen Yang
+
 # Getting Started
 This repository is organised as follows:
 
