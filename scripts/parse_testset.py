@@ -110,7 +110,7 @@ def parse_row(row: dict) -> list:
 
 def process_line(index: int, line: str, size: int) -> list:
     """
-    Processes a single line from a gzipped JSON file and returns a generated feature set.
+    Processes a single line from a JSON file and returns a generated feature set.
 
     Parameters
     ----------
@@ -119,6 +119,9 @@ def process_line(index: int, line: str, size: int) -> list:
 
     line : str
         A string containing a single line of JSON data.
+
+    size : int
+        Total number of lines of a JSON file
 
     Returns
     -------
@@ -133,7 +136,7 @@ def process_line(index: int, line: str, size: int) -> list:
 
 def parse_json(json_path: str) -> pd.DataFrame:
     """
-    Processes a single line from a gzipped JSON file and returns a generated feature set.
+    Processes a single line from a JSON or gzipped JSON (.json.gz) file and returns a generated feature set.
 
     Parameters
     ----------
