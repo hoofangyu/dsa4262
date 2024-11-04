@@ -85,7 +85,7 @@ aws s3 cp --no-sign-request s3://sg-nex-data/data/processed_data/m6Anet/SGNex_A5
 ```
 2. Run `run` shell script
 ```bash
-./run data/data.json eval models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results true 
+./run data/data.json eval models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results 
 ```
 **OR**
 
@@ -110,7 +110,7 @@ scp -i parkitect.pem data/dataset1.json.gz ubuntu@11.111.111.111:dsa4262/data
 ```
 2. Run `run` shell script
 ```bash
-./run data/dataset1.json.gz eval models/final_catboost_model.cbm dataset1_final_catboost_model_results true 
+./run data/dataset1.json.gz eval models/final_catboost_model.cbm dataset1_final_catboost_model_results 
 ```
 **OR**
 
@@ -194,7 +194,7 @@ python3 scripts/parse_testset.py data/dataset1.json.gz eval
 ```
 1. Run prediction
 ```bash
-python3 scripts/catboost_predictions.py data/eval.parquet models/cb_model.cbm dataset1_final_cb_model_results --parquet
+python3 scripts/catboost_predictions.py data/eval.parquet models/cb_model.cbm dataset1_final_cb_model_results
 ```
 
 #### On Local
@@ -213,7 +213,7 @@ python3 scripts/parse_testset.py data/dataset1.json.gz eval
 ```
 5. Run prediction
 ```bash
-python3 scripts/catboost_predictions.py data/eval.parquet models/cb_model.cbm dataset1_final_cb_model_results --parquet
+python3 scripts/catboost_predictions.py data/eval.parquet models/cb_model.cbm dataset1_final_cb_model_results
 ```
 
 ***
