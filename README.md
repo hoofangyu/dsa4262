@@ -146,7 +146,7 @@ aws s3 cp --no-sign-request s3://sg-nex-data/data/processed_data/m6Anet/SGNex_A5
     python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results
     ```
 
-3. Copy predictions file from AWS to local
+3. Copy predictions file from AWS to local machine
 ```bash
 # scp -i <local_pem_file_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws> <local_testset_path>
 scp -i parkitect.pem ubuntu@11.111.111.111:dsa4262/output/SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results.csv .
@@ -206,7 +206,7 @@ python3 scripts/parse_testset.py data/dataset1.json.gz eval
 ```bash
 python3 scripts/catboost_predictions.py data/eval.parquet models/cb_model.cbm dataset1_final_cb_model_results
 ```
-6. Copy predictions file from AWS to local
+6. Copy predictions file from AWS to local machine
 ```bash
 # scp -i <local_pem_file_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws> <local_testset_path>
 scp -i parkitect.pem ubuntu@11.111.111.111:dsa4262/output/cb_model.cbm dataset1_final_cb_model_results.csv .
