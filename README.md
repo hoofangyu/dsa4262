@@ -14,8 +14,8 @@ root
 ### Quick Links
 
 |   |   |
-| ---   | --- |
-| For DSA4262 fellow peer reviewers | [link](#using-our-pre-trained-model) to steps on generating predictions from our pre-trained model |
+| :---  | :--- |
+| For DSA4262 fellow peer reviewers | <ol><li>Follow [installation instructions](#installation)</li><li>Follow [steps](#using-our-pre-trained-model) on generating predictions from our pre-trained model</li></ol>  |
 
 ## Main Flow
 The main workflow consists of data processing, model training, and generating predictions. The component diagram below provides a high-level view:
