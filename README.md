@@ -100,6 +100,12 @@ scp -i parkitect.pem data/dataset1.json.gz ubuntu@11.111.111.111:dsa4262/data
     python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results
     ```
 
+3. Copy predictions file from AWS to local
+```bash
+# scp -i <local_pem_file_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws> <local_testset_path>
+scp -i parkitect.pem ubuntu@11.111.111.111:dsa4262/output/final_catboost_model.cbm dataset1_final_catboost_model_results.csv .
+```
+
 #### On Local
 1. Move local testset to /data folder.
 2. Run `run` shell script
@@ -140,7 +146,12 @@ aws s3 cp --no-sign-request s3://sg-nex-data/data/processed_data/m6Anet/SGNex_A5
     python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results
     ```
 
-<br>
+3. Copy predictions file from AWS to local
+```bash
+# scp -i <local_pem_file_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws> <local_testset_path>
+scp -i parkitect.pem ubuntu@11.111.111.111:dsa4262/output/SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results.csv .
+```
+
 <br>
 
 ## Using our scripts to train your own model
@@ -183,17 +194,22 @@ scp -i parkitect.pem data/dataset0.json.gz ubuntu@11.111.111.111:dsa4262/data
 ```bash
 python3 scripts/parse_json.py data/dataset0.json.gz training
 ```
-1. Train model
+3. Train model
 ```bash
 python3 scripts/catboost_training.py data/training.parquet cbmodel
 ```
-1. Parse test set
+4. Parse test set
 ```bash
 python3 scripts/parse_testset.py data/dataset1.json.gz eval
 ```
-1. Run prediction
+5. Run prediction
 ```bash
 python3 scripts/catboost_predictions.py data/eval.parquet models/cb_model.cbm dataset1_final_cb_model_results
+```
+6. Copy predictions file from AWS to local
+```bash
+# scp -i <local_pem_file_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws> <local_testset_path>
+scp -i parkitect.pem ubuntu@11.111.111.111:dsa4262/output/cb_model.cbm dataset1_final_cb_model_results.csv .
 ```
 
 #### On Local
