@@ -52,6 +52,6 @@ def test_process_line():
         }
     )
 
-    result = process_line(0, mock_line)
+    result = process_line(0, mock_line, 1)
 
     assert len(result) == 48
