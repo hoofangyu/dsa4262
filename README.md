@@ -38,7 +38,7 @@ python3 -m pip install -r requirements.txt
 ```
 
 # Usage
-## Using our Pre-Trained Model (Follow steps here for DSA4262)
+## Using our Pre-Trained Model (Follow steps here for DSA4262 review)
 By using our pre-trained model, the workflow will consist only the data processing and prediction generation steps. Here is the high-level view:
 
 ![flow diagram](.github/assets/usage_flow.png)
@@ -55,9 +55,12 @@ python3 scripts/catboost_predictions.py <testing_path> <model_path> <output_name
 ```
 The `--parquet` flag is optional. Include this flag if you wish to save the output file as a Parquet format instead of the default CSV.
 
+<br>
+
 ***
 
-### Example Usage
+### Example Usage (for public online file)
+Under the assumption that you're doing so on an AWS ubuntu instance: 
 1. Download public testset to /data folder
 ```bash
 aws s3 cp --no-sign-request s3://sg-nex-data/data/processed_data/m6Anet/SGNex_A549_directRNA_replicate5_run1/data.json data/
@@ -68,5 +71,30 @@ python3 scripts/parse_testset.py data/data.json eval
 ```
 3. Run prediction
 ```bash
+python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results --parquet
+```
+
+<br>
+
+### Example Usage (for local file)
+Under the assumption that you're doing so on an AWS ubuntu instance: 
+1. Upload local testset to /data folder. On your local console, run the following:
+```bash
+# scp -i <local_pem_file_path> <local_testset_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws>
+scp -i parkitect.pem data/dataset1.json.gz ubuntu@11.111.111.111:dsa4262/data
+```
+2. Parse testset
+```bash
+python3 scripts/parse_testset.py data/dataset1.json.gz eval
+```
+3. Run prediction
+```bash
 python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results --parquet
 ```
+***
+
+<br>
+
+## Using our scripts to train your own model
+
+
