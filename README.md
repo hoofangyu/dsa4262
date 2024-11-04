@@ -32,12 +32,7 @@ git clone https://github.com/hoofangyu/dsa4262.git
 ```bash
 cd dsa4262
 ```
-3. Create virtual environment (optional)
-```bash
-sudo apt install python3.8-venv
-python3 -m venv <name_of_env>
-```
-4. Install required packages
+3. Install required packages
 ```bash
 sudo apt install python3-pip
 python3 -m pip install -r requirements.txt
