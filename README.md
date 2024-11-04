@@ -121,7 +121,7 @@ scp -i parkitect.pem data/dataset1.json.gz ubuntu@11.111.111.111:dsa4262/data
     ```
    2. Run prediction 
     ```bash
-    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results --parquet
+    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results
     ```
 
 #### On Local
@@ -139,7 +139,7 @@ scp -i parkitect.pem data/dataset1.json.gz ubuntu@11.111.111.111:dsa4262/data
     ```
    2. Run prediction 
     ```bash
-    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results --parquet
+    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results
     ```
 
 <br>
