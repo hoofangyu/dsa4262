@@ -91,29 +91,29 @@ The `--parquet` flag is optional. Include this flag if you wish to save the outp
 1. Upload local testset to /data folder. On your local console, run the following:
 ```bash
 # scp -i <local_pem_file_path> <local_testset_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws>
-scp -i parkitect.pem data/dataset1.json.gz ubuntu@11.111.111.111:dsa4262/data
+scp -i parkitect.pem data/dataset2.json.gz ubuntu@11.111.111.111:dsa4262/data
 ```
 
 2. Run `run` shell script (on AWS)
 ```bash
-./run data/dataset1.json.gz eval models/final_catboost_model.cbm dataset1_final_catboost_model_results 
+./run data/dataset2.json.gz eval models/final_catboost_model.cbm dataset2_final_catboost_model_results 
 ```
 **OR**
 
 2. Run individual python scripts (on AWS)
    1. Parse testset & run predictions
     ```bash
-    python3 scripts/parse_testset.py data/dataset1.json.gz eval
+    python3 scripts/parse_testset.py data/dataset2.json.gz eval
     ```
    2. Run prediction 
     ```bash
-    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results
+    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset2_final_catboost_model_results
     ```
 
 3. Download predictions file from AWS to local machine
 ```bash
 # scp -i <local_pem_file_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws> <local_testset_path>
-scp -i parkitect.pem ubuntu@11.111.111.111:dsa4262/output/dataset1_final_catboost_model_results.csv .
+scp -i parkitect.pem ubuntu@11.111.111.111:dsa4262/output/dataset2_final_catboost_model_results.csv .
 ```
 
 #### On Local
