@@ -61,16 +61,15 @@ python3 scripts/catboost_predictions.py <parsed_test_set_path> <model_path> <out
 ```
 The `--parquet` flag is optional. Include this flag if you wish to save the output file as a Parquet format instead of the default CSV.
 
-#### Using run shell script
-Alternatively, you may use our run script for convenience
-1. Move or download the testset directly to /data folder
-2. Parse testset and run predictions
-```bash
-./run <test_set_path> <parse_test_set_name> <trained_model_path> <predictions_output_name> [is_parquet]
-```
-The `[is_parquet]` option is optional. Include this if you wish to save the output file as a Parquet format instead of the default CSV.
-
-<br>
+> [!NOTE]
+> #### Using run shell script
+> Alternatively, you may use our run script for convenience
+> 1. Move or download the testset directly to /data folder
+> 2. Parse testset and run predictions
+> ```bash
+> ./run <test_set_path> <parse_test_set_name> <trained_model_path> <predictions_output_name> [is_parquet]
+> ```
+> The `[is_parquet]` option is optional. Include this if you wish to save the output file as a Parquet format instead of the default CSV.
 
 ***
 
