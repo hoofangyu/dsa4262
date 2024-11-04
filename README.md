@@ -77,13 +77,16 @@ The `--parquet` flag is optional. Include this flag if you wish to save the outp
 
 ***
 
-To obtain AWS ip_address, use this command on AWS
-```
-curl http://169.254.169.254/latest/meta-data/public-ipv4
-```
 ### Example Usage (for local file)
 #### On AWS Ubuntu Instance (REFER TO THIS SECTION FOR STUDENT EVALUATION)
-Do use the largest AWS Ubuntu Instance type m6i.4xlarge
+> [!TIP]
+> Do use the largest AWS Ubuntu Instance type m6i.4xlarge
+
+> [!TIP]
+> To obtain AWS ip_address, you can run this command within the console of the AWS ubuntu instance
+> ```
+> curl http://169.254.169.254/latest/meta-data/public-ipv4
+> ``` 
 
 1. Upload local testset to /data folder. On your local console, run the following:
 ```bash
@@ -107,7 +110,7 @@ scp -i parkitect.pem data/dataset1.json.gz ubuntu@11.111.111.111:dsa4262/data
     python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results
     ```
 
-3. Copy predictions file from AWS to local
+3. Download predictions file from AWS to local machine
 ```bash
 # scp -i <local_pem_file_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws> <local_testset_path>
 scp -i parkitect.pem ubuntu@11.111.111.111:dsa4262/output/final_catboost_model.cbm dataset1_final_catboost_model_results.csv .
@@ -153,7 +156,7 @@ aws s3 cp --no-sign-request s3://sg-nex-data/data/processed_data/m6Anet/SGNex_A5
     python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results
     ```
 
-3. Copy predictions file from AWS to local machine
+3. Download predictions file from AWS to local machine
 ```bash
 # scp -i <local_pem_file_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws> <local_testset_path>
 scp -i parkitect.pem ubuntu@11.111.111.111:dsa4262/output/SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results.csv .
