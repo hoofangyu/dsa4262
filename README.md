@@ -1,5 +1,5 @@
 # m6Atect
-Presenting our solution for DSA4262: m6atect!  
+Presenting our solution for DSA4262: m6atect by team Parkitect!  
 By Fang Yu, Eda, Kah Seng, Wen Yang
 
 # Getting Started
@@ -77,32 +77,8 @@ The `--parquet` flag is optional. Include this flag if you wish to save the outp
 
 ***
 
-### Example Usage (for public online file)
-#### On AWS Ubuntu Instance
-1. Download public testset to /data folder
-```bash
-aws s3 cp --no-sign-request s3://sg-nex-data/data/processed_data/m6Anet/SGNex_A549_directRNA_replicate5_run1/data.json data/
-```
-2. Run `run` shell script
-```bash
-./run data/data.json eval models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results 
-```
-**OR**
-
-2. Run individual python scripts
-   1. Parse testset & run predictions
-    ```bash
-    python3 scripts/parse_testset.py data/data.json eval
-    ```
-   2. Run prediction 
-    ```bash
-    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results
-    ```
-
-<br>
-
 ### Example Usage (for local file)
-#### On AWS Ubuntu Instance
+#### On AWS Ubuntu Instance (REFER TO THIS SECTION FOR STUDENT EVALUATION)
 1. Upload local testset to /data folder. On your local console, run the following:
 ```bash
 # scp -i <local_pem_file_path> <local_testset_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws>
@@ -142,6 +118,29 @@ scp -i parkitect.pem data/dataset1.json.gz ubuntu@11.111.111.111:dsa4262/data
     python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results
     ```
 
+### Example Usage (for public online file)
+#### On AWS Ubuntu Instance
+1. Download public testset to /data folder
+```bash
+aws s3 cp --no-sign-request s3://sg-nex-data/data/processed_data/m6Anet/SGNex_A549_directRNA_replicate5_run1/data.json data/
+```
+2. Run `run` shell script
+```bash
+./run data/data.json eval models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results 
+```
+**OR**
+
+2. Run individual python scripts
+   1. Parse testset & run predictions
+    ```bash
+    python3 scripts/parse_testset.py data/data.json eval
+    ```
+   2. Run prediction 
+    ```bash
+    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results
+    ```
+
+<br>
 <br>
 
 ## Using our scripts to train your own model
