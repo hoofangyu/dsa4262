@@ -77,17 +77,16 @@ The `--parquet` flag is optional. Include this flag if you wish to save the outp
 
 ***
 
+To obtain AWS ip_address, use this command on AWS
+```
+curl http://169.254.169.254/latest/meta-data/public-ipv4
+```
 ### Example Usage (for local file)
 #### On AWS Ubuntu Instance (REFER TO THIS SECTION FOR STUDENT EVALUATION)
 1. Upload local testset to /data folder. On your local console, run the following:
 ```bash
 # scp -i <local_pem_file_path> <local_testset_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws>
 scp -i parkitect.pem data/dataset1.json.gz ubuntu@11.111.111.111:dsa4262/data
-```
-
-To obtain AWS ip_address, use this command on AWS
-```
-curl http://169.254.169.254/latest/meta-data/public-ipv4
 ```
 
 2. Run `run` shell script (on AWS)
