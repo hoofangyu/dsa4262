@@ -8,7 +8,8 @@ root
 ├── model          # Stored trained models
 ├── data           # Input raw data sets (in JSON)
 ├── output         # Results in CSV format from model predictions
-└── tests          # Unit tests for scripts
+├── tests          # Unit tests for scripts
+└── devo_notebooks # Notebooks for development
 ```
 
 ### Quick Links
@@ -52,7 +53,7 @@ python3 scripts/parse_testset.py <dataset_path> <output_file_name>
 
 3. Run predition with `catboost_predictions.py`
 ```bash
-python3 scripts/catboost_predictions.py <testing_path> <model_path> <output_name> [--parquet]
+python3 scripts/catboost_predictions.py <parsed_test_set_path> <model_path> <output_name> [--parquet]
 ```
 The `--parquet` flag is optional. Include this flag if you wish to save the output file as a Parquet format instead of the default CSV.
 
@@ -115,19 +116,19 @@ By generating your own model with our scripts, the workflow follows that of the 
 2. Move or download the labels directly to /data folder
 3. Parse training set with labels with `parse_json.py` 
 ```bash
-python3 scripts/parse_json.py <dataset_path> <output_file_name>
+python3 scripts/parse_json.py <training_set_path> <output_file_name>
 ```
 4. Train model using parsed training set from Step 3. with `catboost_training.py`.
 ```bash
-python3 scripts/catboost_training.py <training_data_set_path> <output_file_name>
+python3 scripts/catboost_training.py <parsed_training_set_path> <output_file_name>
 ```
 5. Parse test set with `parse_testset.py` 
 ```bash
-python3 scripts/parse_testset.py <dataset_path> <output_file_name>
+python3 scripts/parse_testset.py <test_set_path> <output_file_name>
 ```
 6. Run predition using parsed test set from Step 5. and trained model from Step 4. with `catboost_predictions.py`
 ```bash
-python3 scripts/catboost_predictions.py <testing_path> <model_path> <output_name> [--parquet]
+python3 scripts/catboost_predictions.py <parsed_test_set_path> <model_path> <output_name> [--parquet]
 ```
 The `--parquet` flag is optional. Include this flag if you wish to save the output file as a Parquet format instead of the default CSV.
 
