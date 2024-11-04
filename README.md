@@ -113,7 +113,7 @@ scp -i parkitect.pem data/dataset1.json.gz ubuntu@11.111.111.111:dsa4262/data
 3. Download predictions file from AWS to local machine
 ```bash
 # scp -i <local_pem_file_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws> <local_testset_path>
-scp -i parkitect.pem ubuntu@11.111.111.111:dsa4262/output/final_catboost_model.cbm dataset1_final_catboost_model_results.csv .
+scp -i parkitect.pem ubuntu@11.111.111.111:dsa4262/output/dataset1_final_catboost_model_results.csv .
 ```
 
 #### On Local
