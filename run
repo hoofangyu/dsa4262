@@ -3,7 +3,7 @@
 # Usage: ./run <test_set_path> <parse_test_set_name> <trained_model_path> <predictions_output_name> [is_parquet]
 
 if [ "$#" -lt 4 ]; then
-    echo "You are missing some parameters. Please ensure that you have ran $0 <test_set_path> <parse_test_set_name> <trained_model_path> <predictions_output_name> [is_parquet]"
+    echo "Error: You are missing some parameters. Please ensure that you have ran $0 <test_set_path> <parse_test_set_name> <trained_model_path> <predictions_output_name> [is_parquet]"
     exit 1
 fi
 
@@ -12,6 +12,13 @@ PARSED_TEST_SET_NAME=$2
 TRAINED_MODEL_PATH=$3
 PREDICTIONS_OUTPUT_NAME=$4
 IS_PARQUET=${5:-false}
+
+if [ "$#" -ge 5 ]; then
+    if [[ "$IS_PARQUET" != "true" && "$IS_PARQUET" != "false" ]]; then
+        echo "Error: The fifth parameter '[is_parquet]' must be either 'true' or 'false'."
+        exit 1
+    fi
+fi
 
 # Step 1: Parsing test set
 echo "Parsing test set in '$TEST_SET_PATH' to generate '$PARSED_TEST_SET_NAME.parquet'"
