@@ -38,6 +38,10 @@ cd dsa4262
 sudo apt install python3-pip
 python3 -m pip install -r requirements.txt
 ```
+4. Grant permissions to run `run` script
+```bash
+chmod 500 run
+```
 
 # Usage
 ## Using our Pre-Trained Model
@@ -51,11 +55,20 @@ By using our pre-trained model, the workflow will consist only the data processi
 python3 scripts/parse_testset.py <dataset_path> <output_file_name>
 ```
 
-3. Run predition with `catboost_predictions.py`
+3. Run prediction with `catboost_predictions.py`
 ```bash
 python3 scripts/catboost_predictions.py <parsed_test_set_path> <model_path> <output_name> [--parquet]
 ```
 The `--parquet` flag is optional. Include this flag if you wish to save the output file as a Parquet format instead of the default CSV.
+
+#### Using run shell script
+Alternatively, you may use our run script for convenience
+1. Move or download the testset directly to /data folder
+2. Parse testset and run predictions
+```bash
+./run <test_set_path> <parse_test_set_name> <trained_model_path> <predictions_output_name> [is_parquet]
+```
+The `[is_parquet]` option is optional. Include this if you wish to save the output file as a Parquet format instead of the default CSV.
 
 <br>
 
@@ -67,14 +80,21 @@ The `--parquet` flag is optional. Include this flag if you wish to save the outp
 ```bash
 aws s3 cp --no-sign-request s3://sg-nex-data/data/processed_data/m6Anet/SGNex_A549_directRNA_replicate5_run1/data.json data/
 ```
-2. Parse testset
+2. Run `run` shell script
 ```bash
-python3 scripts/parse_testset.py data/data.json eval
+./run data/data.json eval models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results true 
 ```
-3. Run prediction 
-```bash
-python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results --parquet
-```
+**OR**
+
+2. Run individual python scripts
+   1. Parse testset & run predictions
+    ```bash
+    python3 scripts/parse_testset.py data/data.json eval
+    ```
+   2. Run prediction 
+    ```bash
+    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm SGNex_A549_directRNA_replicate5_run1_final_catboost_model_results --parquet
+    ```
 
 <br>
 
@@ -85,26 +105,39 @@ python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_
 # scp -i <local_pem_file_path> <local_testset_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws>
 scp -i parkitect.pem data/dataset1.json.gz ubuntu@11.111.111.111:dsa4262/data
 ```
-2. Parse test set
+2. Run `run` shell script
 ```bash
-python3 scripts/parse_testset.py data/dataset1.json.gz eval
+./run data/dataset1.json.gz eval models/final_catboost_model.cbm dataset1_final_catboost_model_results true 
 ```
-3. Run prediction
-```bash
-python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results --parquet
-```
+**OR**
+
+2. Run individual python scripts
+   1. Parse testset & run predictions
+    ```bash
+    python3 scripts/parse_testset.py data/dataset1.json.gz eval
+    ```
+   2. Run prediction 
+    ```bash
+    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results --parquet
+    ```
 
 #### On Local
 1. Move local testset to /data folder.
-2. Parse test set
+2. Run `run` shell script
 ```bash
-python3 scripts/parse_testset.py data/dataset1.json.gz eval
+./run data/dataset1.json.gz eval models/final_catboost_model.cbm dataset1_final_catboost_model_results true 
 ```
-3. Run prediction
-```bash
-python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results --parquet
-```
-***
+**OR**
+
+2. Run individual python scripts
+   1. Parse testset & run predictions
+    ```bash
+    python3 scripts/parse_testset.py data/dataset1.json.gz eval
+    ```
+   2. Run prediction 
+    ```bash
+    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset1_final_catboost_model_results --parquet
+    ```
 
 <br>
 

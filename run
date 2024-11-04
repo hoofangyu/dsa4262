@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Usage: ./run <test_set_path> <parse_test_set_name> <trained_model_path> <predictions_output_name> [is_parquet]
+
+if [ "$#" -lt 4 ]; then
+    echo "You are missing some parameters. Please ensure that you have ran $0 <test_set_path> <parse_test_set_name> <trained_model_path> <predictions_output_name> [is_parquet]"
+    exit 1
+fi
+
+TEST_SET_PATH=$1
+PARSED_TEST_SET_NAME=$2
+TRAINED_MODEL_PATH=$3
+PREDICTIONS_OUTPUT_NAME=$4
+IS_PARQUET=${5:-false}
+
+# Step 1: Parsing test set
+echo "Parsing test set in '$TEST_SET_PATH' to generate '$PARSED_TEST_SET_NAME.parquet'"
+python3 scripts/parse_testset.py "$TEST_SET_PATH" "$PARSED_TEST_SET_NAME"
+
+# Step 2: Generating predictions
+PARSED_TEST_SET_PATH="data/${PARSED_TEST_SET_NAME}.parquet"
+echo "Generating predictions using model '$TRAINED_MODEL_PATH' with parsed test set in '$PARSED_TEST_SET_PATH'."
+
+if [ "$IS_PARQUET" = false ]; then
+    python3 scripts/catboost_predictions.py "$PARSED_TEST_SET_PATH" "$TRAINED_MODEL_PATH" "$PREDICTIONS_OUTPUT_NAME"
+    echo "Generation of predictions successful. Please find resultant file in output/$PREDICTIONS_OUTPUT_NAME.parquet"
+
+else
+    python3 scripts/catboost_predictions.py "$PARSED_TEST_SET_PATH" "$TRAINED_MODEL_PATH" "$PREDICTIONS_OUTPUT_NAME" --parquet
+    echo "Generation of predictions successful. Please find resultant file in output/$PREDICTIONS_OUTPUT_NAME.csv"
+fi
