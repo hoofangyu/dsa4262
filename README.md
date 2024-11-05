@@ -112,7 +112,7 @@ scp -i parkitect.pem ubuntu@11.111.111.111:dsa4262/output/dataset2_final_catboos
 ```
 
 ### Example Usage (for local file)
-#### On AWS Ubuntu Instance (REFER TO THIS SECTION FOR STUDENT EVALUATION)
+#### On AWS Ubuntu Instance
 
 1. Upload local testset to /data folder. On your local console, run the following:
 ```bash
