@@ -8,12 +8,12 @@ This repository is organised as follows:
 ```
 root
 ├── .github        # GitHub configuration files (e.g., workflows for CI/CD)
-├── scripts        # Main scripts for data processing and model training
-├── model          # Stored trained models
 ├── data           # Input raw data sets (in JSON)
+├── devo_notebooks # Notebooks for development
+├── model          # Stored trained models
 ├── output         # Results in CSV format from model predictions
-├── tests          # Unit tests for scripts
-└── devo_notebooks # Notebooks for development
+├── scripts        # Main scripts for data processing and model training
+└── tests          # Unit tests for scripts
 ```
 
 ### Quick Links
@@ -53,7 +53,7 @@ By using our pre-trained model, the workflow will consist only the data processi
 
 ![flow diagram](.github/assets/usage_flow.png)
 
-1. Move or download the testset directly to /data folder
+1. Use our sample testset in the /data folder OR Move/download a testset directly to /data folder
 2. Parse testset with `parse_testset.py` 
 ```bash
 python3 scripts/parse_testset.py <dataset_path> <output_file_name>
@@ -73,20 +73,46 @@ The `--parquet` flag is optional. Include this flag if you wish to save the outp
 > ```bash
 > ./run <test_set_path> <parse_test_set_name> <trained_model_path> <predictions_output_name> [is_parquet]
 > ```
-> The `[is_parquet]` option is optional. Include this if you wish to save the output file as a Parquet format instead of the default CSV.
+> The `[is_parquet]` option (true/false) is optional. Include this if you wish to save the output file as a Parquet format instead of the default CSV.
 
 ***
 
-### Example Usage (for local file)
+### Example Usage (using our sample test set)
 #### On AWS Ubuntu Instance (REFER TO THIS SECTION FOR STUDENT EVALUATION)
 > [!TIP]
-> Do use the largest AWS Ubuntu Instance type m6i.4xlarge
+> We recommend using the largest instance, m6i.4xlarge, if possible for faster computation speeds
 
 > [!TIP]
 > To obtain AWS ip_address, you can run this command within the console of the AWS ubuntu instance
 > ```
 > curl http://169.254.169.254/latest/meta-data/public-ipv4
-> ``` 
+> ```
+
+1. With reference to the sample testset `data/dataset2.json.gz`
+2. Run `run` shell script (on AWS)
+```bash
+./run data/dataset2.json.gz eval models/final_catboost_model.cbm dataset2_final_catboost_model_results 
+```
+**OR**
+
+2. Run individual python scripts (on AWS)
+   1. Parse testset & run predictions
+    ```bash
+    python3 scripts/parse_testset.py data/dataset2.json.gz eval
+    ```
+   2. Run prediction 
+    ```bash
+    python3 scripts/catboost_predictions.py data/eval.parquet models/final_catboost_model.cbm dataset2_final_catboost_model_results
+    ```
+
+3. Download predictions file from AWS to local machine
+```bash
+# scp -i <local_pem_file_path> <host_name@ip_address:path_to_data_folder_in_dsa4262_folder_on_aws> <local_testset_path>
+scp -i parkitect.pem ubuntu@11.111.111.111:dsa4262/output/dataset2_final_catboost_model_results.csv .
+```
+
+### Example Usage (for local file)
+#### On AWS Ubuntu Instance (REFER TO THIS SECTION FOR STUDENT EVALUATION)
 
 1. Upload local testset to /data folder. On your local console, run the following:
 ```bash
