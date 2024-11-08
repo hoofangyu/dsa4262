@@ -66,7 +66,7 @@ def main():
         df.to_parquet(output_path)
     else:
         output_path = f"output/{output_name}.csv"
-        df.to_csv(output_path)
+        df.to_csv(output_path, index=False)
         
     print(f"Processing complete, dataset saved to {output_path}")
 
